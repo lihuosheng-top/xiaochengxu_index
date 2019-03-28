@@ -1,0 +1,7 @@
+.tupj {
+    width: 47%;
+    height: 240rpx;
+    float: left;
+    margin: 2% 0 0 2%;
+    position: relative;
+}

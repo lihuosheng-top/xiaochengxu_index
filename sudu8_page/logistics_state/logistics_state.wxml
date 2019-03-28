@@ -1,0 +1,8 @@
+<view class="logistics_headbox hbj">
+    <image class="product_img" mode="aspectFill" src="/sudu8_page/resource/img/product_img.png"></image>
+    <view>
+        <view class="logistics_wlzt">物流信息</view>
+        <view class="logistics_wl mt-10">{{kuaidi}}<text>{{kuaidihao}}</text>
+        </view>
+    </view>
+</view>

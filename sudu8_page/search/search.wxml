@@ -1,0 +1,34 @@
+<import src="../templates/common.wxml"></import>
+<view class="bg_f">
+    <view class="list_pic clearfix">
+        <block wx:for="{{searchlist}}">
+            <view class="list_pic19" wx:if="{{item.type=='showPro'||item.type=='showPro_lv'||item.type=='showProMore'}}">
+                <navigator url="/sudu8_page/{{item.type}}/{{item.type}}?id={{item.id}}">
+                    <image mode="aspectFill" src="{{item.thumb}}"></image>
+                    <view class="title">{{item.title}}</view>
+                    <view class="desc">{{item.desc}}</view>
+                    <view class="time">
+                        <text class="price" style="color:{{c}}">¥{{item.price}}</text>
+                        <text class="sale">已售：{{item.sale_num}}</text>
+                        <view class="btn_buy" style="border:1px solid {{baseinfo.base_color2}};color:{{baseinfo.base_color2}}">{{item.buy_type}}</view>
+                    </view>
+                </navigator>
+            </view>
+            <view class="list_pic3" wx:if="{{item.type=='showArt'||item.type=='showPic'}}">
+                <navigator url="/sudu8_page/{{item.type}}/{{item.type}}?id={{item.id}}">
+                    <image mode="widthFix" src="{{item.thumb}}"></image>
+                    <view class="title">{{item.title}}</view>
+                    <view class="desc">{{item.desc}}</view>
+                    <view class="time">
+                        <image class="fl" src="{{footer.i_time}}"></image>
+                        <text class="fl">{{item.ctime}}</text>
+                        <image class="fl i_hits" src="{{footer.i_view}}"></image>
+                        <text class="fl">{{item.hits}}</text>
+                    </view>
+                </navigator>
+            </view>
+        </block>
+    </view>
+</view>
+<template is="copyright" data="{{...baseinfo}}"></template>
+<template is="footer" data="{{...baseinfo,page_signs:page_signs}}" wx:if="{{baseinfo.tabbar_t==1}}"></template>

@@ -1,0 +1,55 @@
+.chongz {
+    padding: 0 20rpx;
+}
+
+.cz {
+    height: 80rpx;
+    line-height: 80rpx;
+    color: #000000;
+    border-bottom: 1px solid #dedede;
+    padding-left: 30rpx;
+    position: relative;
+}
+
+.jutiz {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+
+.ssld {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 40rpx;
+    margin-top: 0;
+    text-align: right;
+    background-color: #f1f1f1;
+}
+
+.xld {
+    padding: 0 60rpx;
+}
+
+.wxzhi {
+    margin-top: 20rpx;
+    background-color: #00b80c;
+    color: #ffffff;
+}
+
+.niew {
+    padding: 10rpx 10rpx;
+}
+
+.row_box input {
+    line-height: 40rpx;
+    padding: 10rpx;
+    min-height: 40rpx;
+    border: none;
+    margin-top: 4rpx;
+}
+
+.row_box text {
+    margin: 0 6rpx;
+}

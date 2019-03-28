@@ -1,0 +1,65 @@
+<scroll-view scrollX class="order_nav">
+    <view bindtap="chonxhq" class="order_nav_single {{type==item.id?'order_nav_single_on':''}}" data-id="{{item.id}}" data-nav="{{item.nav}}" wx:for="{{nav}}">{{item.text}}</view>
+</scroll-view>
+<view class="order_list_contentbox">
+    <view bindtap="orderinfo" class="order_list_single" data-order="{{item.order_id}}" wx:for="{{orderinfo}}">
+        <view class="order_list_head hbj">
+            <view class="order_list_head_left flex1">订单号：{{item.order_id}}</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==0}}">待付款</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==1&&item.nav==1}}">待发货</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==1&&item.nav==2}}">待消费</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==2}}">已完成</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==-1}}">已过期</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==4}}">已发货</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==5}}">订单被取消</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==6}}">订单取消中</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==7}}">退货审核中</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==8}}">退货成功</view>
+            <view class="order_list_head_right" wx:if="{{item.flag==9}}">退货失败</view>
+        </view>
+        <view class="order_list_productbox">
+            <view class="order_list_product hbj">
+                <image class="product_img" mode="aspectFill" src="{{item.thumb}}"></image>
+                <view class="order_list_product_center">
+                    <view class="order_product_title text_hide">{{item.product}}</view>
+                    <view class="order_product_des text_hide"></view>
+                </view>
+                <view class="flex1"></view>
+                <view>
+                    <view class="order_product_price">
+                        <text>￥</text>{{item.price}}</view>
+                    <view class="order_product_count">X{{item.num}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="order_list_pricebox hbj">
+            <view class="order_list_price_left">共{{item.num}}件商品 合计：
+          <view>
+                    <text>￥</text>{{item.num*item.price}}</view>
+            </view>
+            <view class="flex1"></view>
+            <view catchtap="lijipay" class="order_list_price_btn" data-order="{{item.order_id}}" data-pid="{{item.pid}}" wx:if="{{item.flag==0}}">
+            立即付款
+          </view>
+            <view catchtap="orderinfo" class="order_list_price_btn" data-order="{{item.order_id}}" wx:if="{{item.flag==1||item.flag==2||item.flag==6}}">
+            查看详情
+          </view>
+            <view catchtap="qrshouh" class="order_list_price_btn" data-order="{{item.order_id}}" wx:if="{{item.flag==4}}">
+            确认收货
+          </view>
+            <view catchtap="wlinfo" class="order_list_price_btn" data-kuaidi="{{item.kuaidi}}" data-kuaidihao="{{item.kuaidihao}}" wx:if="{{item.flag==4}}">
+            查看物流
+          </view>
+            <view catchtap="makePhoneCallB" class="order_list_price_btn" wx:if="{{item.flag==6||item.flag==7||item.flag==9}}">
+            联系商家
+          </view>
+            <view class="order_list_msg" wx:if="{{item.flag==5&&item.qxbeizhu!=NULL}}">
+            商家留言：<text>{{item.qxbeizhu}}</text>
+            </view>
+            <view catchtap="orderagain" class="order_list_price_btn" data-pid="{{item.pid}}" wx:if="{{item.flag==8}}">
+            再次下单
+          </view>
+        </view>
+    </view>
+</view>
+<template is="footer" data="{{...baseinfo,page_sign:page_sign}}" wx:if="{{baseinfo.tabbar_t==1}}"></template>

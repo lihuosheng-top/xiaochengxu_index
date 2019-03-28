@@ -1,0 +1,155 @@
+<view class="container page1">
+    <view class="head" style="background-color:{{baseinfo.base_color}}">
+        <image class="foodlogo" src="{{shangjbs.thumb}}"></image>
+        <view class="ftitle1">
+      {{shangjbs.names}}
+    </view>
+        <view class="ftitle2" wx:if="{{tnum>0}}">
+        {{zhm}}
+      </view>
+        <view class="ftitle2">
+      {{shangjbs.tags!=null?shangjbs.tags:''}}
+    </view>
+        <view class="ftitle2">
+      {{shangjbs.notice!=null?shangjbs.notice:''}}
+    </view>
+    </view>
+    <view class="P_title">
+        <view bindtap="tabChange" class="{{orderOrBusiness=='order'?'P_order P_active':'P_order'}}" data-id="order" style="border-bottom:4rpx solid {{orderOrBusiness=='order'?baseinfo.base_color2:'transparent'}}">
+      开始点餐
+    </view>
+        <view bindtap="tabChange" class="{{orderOrBusiness=='business'?'P_business P_active':'P_business'}}" data-id="business" style="border-bottom:4rpx solid {{orderOrBusiness=='business'?baseinfo.base_color2:'transparent'}}">
+      商家介绍
+    </view>
+    </view>
+    <view class="goods" style="height: {{goodsH}}px;" wx:if="{{orderOrBusiness=='order'}}">
+        <view class="menu-wrapper">
+            <scroll-view scrollY scrollWithAnimation="{{animation}}" style="height:100%">
+                <view bindtap="catClickFn" class="menu-item {{catHighLightIndex==index?'current':''}}" id="cat_{{index}}_{{item.id}}" wx:for="{{chessRoomDetail.catList}}">{{item.categoryName}}</view>
+            </scroll-view>
+        </view>
+        <view class="foods-wrapper">
+            <scroll-view scrollY bindscroll="goodsViewScrollFn" scrollIntoView="{{toView}}" style="height: 100%;">
+                <view class="food-grouping" id="catGood_{{item.id}}" wx:for="{{chessRoomDetail.catList}}">
+                    <view class="xnerkd">{{item.categoryName}}</view>
+                    <view class="foods-item" id="{{good.oid}}" wx:for="{{item.goodsList}}" wx:for-item="good">
+                        <image class="icon" src="{{good.thumb}}"></image>
+                        <view class="content">
+                            <text class="title">{{good.otitle}}</text>
+                            <text class="price">¥{{good.price}}</text>
+                        </view>
+                        <view class="cartcontrol-wrap">
+                            <view class="cartcontrol" wx:if="{{good.labels}}">
+                                <view bindtap="add" class="xguige" data-index="{{good}}" id="add_{{good.oid}}" style="background:{{baseinfo.base_color2}}">选规格</view>
+                            </view>
+                            <view class="cartcontrol" wx:else>
+                                <block wx:if="{{good.id==goodId.id}}" wx:for="{{gwcdata}}" wx:for-item="goodId">
+                                    <view bindtap="decreaseGoodToCartFn" class="cart-decrease">
+                                        <image class="cart-decrease" id="{{index}}" src="../../sudu8_page_plugin_food/img/dpsp_subtract.png"></image>
+                                        <view class="inner icon-remove_circle_outline"></view>
+                                    </view>
+                                    <text class="cart-count">{{goodId.num}}</text>
+                                </block>
+                                <image bindtap="proadd" class="cart-add icon-add_circle" id="add_{{good.oid}}" src="../../sudu8_page_plugin_food/img/dpsp_add.png"></image>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+    <view class="P_business_P" wx:if="{{orderOrBusiness=='business'}}">
+        <view class="S_top">
+            <view class="S_title">
+        商家信息
+      </view>
+            <view bindtap="makephone" class="iconfont icon-phone" data-tel="{{shangjbs.phone}}" wx:if="{{shangjbs.phone!=null}}">{{shangjbs.phone}} <text style="font-size:20rpx">[点击拨号]</text>
+            </view>
+            <view class="iconfont icon-map">{{shangjbs.address!=null?shangjbs.address:''}}</view>
+            <view class="iconfont icon-time2">{{shangjbs.times}}</view>
+            <view class="iconfont icon-money">{{shangjbs.fuwu}}</view>
+            <view class="iconfont icon-car">{{shangjbs.qita}}</view>
+        </view>
+    </view>
+    <view class="shopcart">
+        <view class="content">
+            <view bindtap="showShopCartFn" class="content-left">
+                <view class="logo-wrapper">
+                    <image class="logo" src="../../sudu8_page_plugin_food/img/{{totalNum>0?'icon_selected':'icon_normal'}}.png">
+                        <i class="icon-shopping_cart"></i>
+                    </image>
+                    <view class="num" wx:if="{{totalNum}}">{{totalNum}}</view>
+                </view>
+                <view class="price {{totalPay>0?'highlight':''}}">￥{{totalPay}}</view>
+            </view>
+            <view class="content-right">
+                <view bindtap="goPayFn" class="pay {{totalPay>0?'payClass':''}}">去结算
+          </view>
+            </view>
+        </view>
+    </view>
+    <view class="good_box" hidden="{{hide_good_box}}" style="left: {{bus_x}}px; top: {{bus_y}}px;"></view>
+    <view style="height:86px;"></view>
+</view>
+<view bindtap="showShopCartFn" class="cover  {{showShopCart&&totalPay>0?'':'hidden'}}"></view>
+<view class="shopcart-list {{showShopCart&&totalPay>0?'':'hidden'}}">
+    <view class="list-header">
+        <view style="text-align:left">
+            <text class="title-line">已选商品</text>
+        </view>
+    </view>
+    <scroll-view scrollY style="max-height: 257px;">
+        <view class="list-content">
+            <view>
+                <view class="food" wx:for="{{chooseGoodArr}}" wx:for-item="good">
+                    <view class="name">
+                        <view>{{good.title}}</view>
+                    </view>
+                    <view class="price">
+                        <view>￥{{good.price}}</view>
+                    </view>
+                    <view class="cartcontrol-wrapper">
+                        <view class="cartcontrol">
+                            <view bindtap="decreaseGoodToCartFn" class="cart-decrease">
+                                <image class="cart-decrease" id="{{index}}" src="../../sudu8_page_plugin_food/img/dpsp_subtract.png"></image>
+                                <view class="inner icon-remove_circle_outline"></view>
+                            </view>
+                            <text class="cart-count">{{good.num}}</text>
+                            <image bindtap="addGoodToCartFn" class="cart-add icon-add_circle" id="add_{{good.id}}" src="../../sudu8_page_plugin_food/img/dpsp_add.png"></image>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+</view>
+<view class="Block" wx:if="{{block}}">
+    <view class="total">
+        <view class="title">
+            <view class="typetitle">
+        {{type_title}}
+      </view>
+        </view>
+        <view style="margin-bottom:20rpx;" wx:for="{{type_arr}}">
+            <view class="type">
+        {{item.title}}
+      </view>
+            <view class="chooseType">
+                <radio-group bindchange="radioChange" class="radio-group" data-id="{{index}}">
+                    <label class="jsdd" wx:for="{{item.val}}" wx:for-index="lab">
+                        <block wx:if="{{lab==0}}">
+                            <radio checked color="{{baseinfo.base_color}}" value="{{lab}}"></radio>{{item}}
+            </block>
+                        <block wx:if="{{lab>0}}">
+                            <radio color="{{baseinfo.base_color}}" value="{{lab}}"></radio>{{item}}
+            </block>
+                    </label>
+                </radio-group>
+            </view>
+        </view>
+        <view bindtap="submit" class="ok">
+      确定
+    </view>
+        <text bindtap="close" class="iconfont icon-close"></text>
+    </view>
+</view>

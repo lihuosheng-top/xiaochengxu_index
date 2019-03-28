@@ -1,0 +1,50 @@
+<import src="../templates/common.wxml"></import>
+<import src="/sudu8_page/resource/wxParse/wxParse.wxml"></import>
+<view class="banner pr tc">
+    <image class="pic" mode="aspectFill" src="{{aboutinfo.bg}}"></image>
+    <view class="pic_bg"></view>
+    <image class="head pa" mode="aspectFill" src="{{aboutinfo.logo}}"></image>
+    <text class="name pa full mt10" style="color:{{baseinfo.base_color_t}};">{{aboutinfo.name}}</text>
+    <text class="address pa full mt20">{{aboutinfo.intro}}</text>
+</view>
+<view class="bg_f index_contact mb10">
+    <view bindtap="openMap">
+        <image class="fl" src="../../sudu8_page/resource/img/i_add.png"></image>{{aboutinfo.address}} [导航]</view>
+    <view>
+        <image class="fl" src="../../sudu8_page/resource/img/i_time.png"></image>{{aboutinfo.worktime}}</view>
+    <view bindtap="dianPhoneCall" data-index="{{aboutinfo.tel}}" data-tel="{{tel}}" style="color:{{baseinfo.base_color2}}">
+        <image class="fl" src="../../sudu8_page/resource/img/i_tel.png"></image>{{aboutinfo.tel}} [点击拨号]</view>
+</view>
+<view class="bg_f mb10">
+    <navigator class="title3">— 热销商品 —
+  </navigator>
+    <view class="list_pic clearfix">
+        <view class="list_pic12" wx:for="{{aboutinfo.goods}}" wx:key="id">
+            <navigator url="/sudu8_page_plugin_shop/goods_detail/goods_detail?id={{item.id}}&tel={{aboutinfo.tel}}">
+                <image mode="widthFix" src="{{item.thumb}}"></image>
+                <view class="title">{{item.title}}</view>
+                <text style="color:{{c}}">¥{{item.sellprice}}</text>
+                <view class="btn_buy" style="border:1px solid {{c}};color:{{c}}" wx:if="{{item.buy_type=='0'}}">购买</view>
+                <view class="btn_buy" style="border:1px solid {{c}};color:{{c}}" wx:else>预约</view>
+            </navigator>
+        </view>
+    </view>
+</view>
+<view class="bg_f mb10" wx:if="{{aboutinfo.title}}">
+    <navigator class="title3">— {{aboutinfo.title}} —
+  </navigator>
+    <scroll-view class="list_pic_s" scrollX="true">
+        <view class="list_pic_s_1" style="width:200rpx" wx:for="{{aboutinfo.text}}" wx:key="id">
+            <image mode="widthFix" src="{{item}}"></image>
+        </view>
+    </scroll-view>
+</view>
+<view class="bg_f mb10">
+    <navigator class="title3">— 商户介绍 —
+  </navigator>
+    <view class="content_box">
+    {{aboutinfo.descp}}
+  </view>
+</view>
+<template is="copyright" data="{{...baseinfo}}"></template>
+<template is="footer" data="{{...baseinfo,page_signs:page_signs}}" wx:if="{{baseinfo.tabbar_t==1}}"></template>

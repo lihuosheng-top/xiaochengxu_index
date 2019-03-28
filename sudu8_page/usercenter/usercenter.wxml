@@ -1,0 +1,126 @@
+<import src="../templates/common.wxml"></import>
+<view class="head mb-20">
+    <view class="headBgColor bg_f" style="background:{{baseinfo.base_color2}}"></view>
+    <image class="head_bg w-750" mode="widthFix" src="{{userbg}}"></image>
+    <view class="head_content bg_f radius-20">
+        <view bindtap="toSign" class="sign_in" wx:if="{{mysign}}">
+      签到
+    </view>
+        <view class="hbj">
+            <image class="head_portrait" src="{{globaluser.avatar}}"></image>
+            <view class="name" style="overflow:hidden">
+                <text>{{globaluser.nickname}}</text>
+                <view class="wkthyk" style="overflow:hidden" wx:if="{{member_card==1}}">
+                    <view class="wkthyk_view1 iconfont icon-x-vip5" style="color:{{isvip?baseinfo.base_color2:'#B5B5B5'}}"></view>
+                    <view class="wkthyk_view2" style="color:{{isvip?baseinfo.base_color2:'#B5B5B5'}};border:2rpx solid {{isvip?baseinfo.base_color2:'#eee'}}" wx:if="{{isvip}}">恭喜您成为会员</view>
+                    <view class="wkthyk_view2" wx:else>您还未开通会员卡</view>
+                </view>
+                <view class="hbj kthyk" style="overflow:hidden" wx:if="{{member_card==2}}">
+                    <view class="kthyk_view1">
+                        <text class="iconfont icon-x-vip5"></text>普通会员</view>
+                    <view class="kthyk_view2 iconfont icon-xinyongqiahuankuan"></view>
+                </view>
+            </view>
+            <navigator class="hbj head_cz" url="/sudu8_page/recharge/recharge">
+                <text class="head_cz_text1 iconfont icon-x-jifen"></text>
+                <text class="head_cz_text2">充值</text>
+            </navigator>
+        </view>
+        <view class="hbj cyd">
+            <navigator class="cyd_view" url="/sudu8_page/scorelist/scorelist?type=2">
+                <view class="cyd_view_text1">{{money}}</view>
+                <view class="cyd_view_text2">余额</view>
+            </navigator>
+            <navigator class="cyd_view" url="/sudu8_page/mycoupon/mycoupon">
+                <view class="cyd_view_text1">{{coupon}}</view>
+                <view class="cyd_view_text2">优惠券</view>
+            </navigator>
+            <navigator class="cyd_view" url="/sudu8_page/scorelist/scorelist">
+                <view class="cyd_view_text1">{{score}}</view>
+                <view class="cyd_view_text2">积分</view>
+            </navigator>
+        </view>
+    </view>
+</view>
+<view class="vip_remind" wx:if="{{needVip&&isview!=1}}">请开通{{cardname}}，获得更好的服务~</view>
+<view bindtap="{{!isvip?vipflag<3?'toRegisterVIP':'':'toRegisterSuccess'}}" class="ljkt w-680 mb-20" style="background:{{baseinfo.base_color2}};z-index:{{needVip?'9999':''}}; pointer-events：none" wx:if="{{vipset!='0'&&isview!=1}}">
+    <view class="ljkt_kxx">
+        <view class="ljkt_kxx_view1">{{cardname}}</view>
+        <view class="ljkt_kxx_view2">
+            <text>****</text>
+            <text>****</text>
+            <text>****</text>
+            <text wx:if="{{viptext}}">{{viptext}}</text>
+            <text wx:else>6688</text>
+        </view>
+        <view class="ljkt_kxx_view3">
+      MEMBERSHIP CARD
+    </view>
+    </view>
+    <text class="ljkt_kt" wx:if="{{!isvip&&vipflag==1}}">立
+即
+开
+通</text>
+    <text class="ljkt_kt" wx:if="{{!isvip&&vipflag==2}}">重
+新
+申
+请</text>
+    <text class="ljkt_kt" style="padding-top:26rpx;" wx:if="{{!isvip&&vipflag==3}}"> 待
+审
+核</text>
+    <text bindtap="toRegisterSuccess" class="ljkt_kt" wx:if="{{isvip||!isvip&&vipflag==4}}">查
+看
+信
+息</text>
+    <view class="ljkt_icon iconfont icon-x-vip5" style="opacity:{{isvip?'0.8':'0.4'}}"></view>
+    <view class="ljkt_line"></view>
+    <view class="ljkt_vip">VIP</view>
+</view>
+<view class="order radius-20 mb-20" wx:if="{{myorder}}">
+    <view class="order_view1 hbj">
+        <text>我的订单</text>
+        <navigator url="/sudu8_page/order_more_list/order_more_list?flag=10&type1=10">查看全部 +</navigator>
+    </view>
+    <view class="order_view2">
+        <navigator url="/sudu8_page/order_more_list/order_more_list?flag=0">
+            <text class="iconfont icon-x-daifukuan" style="color:{{baseinfo.base_color2}}"></text>
+            <view>未付款</view>
+        </navigator>
+        <navigator url="/sudu8_page/order_more_list/order_more_list?flag=1&type1=1">
+            <text class="iconfont icon-x-huowu2" style="color:{{baseinfo.base_color2}}"></text>
+            <view>待发货</view>
+        </navigator>
+        <navigator url="/sudu8_page/order_more_list/order_more_list?flag=4">
+            <text class="iconfont icon-x-fahuo" style="color:{{baseinfo.base_color2}}"></text>
+            <view>待收货</view>
+        </navigator>
+        <navigator url="/sudu8_page/order_more_list/order_more_list?flag=2">
+            <text class="iconfont icon-x-xiangzi" style="color:{{baseinfo.base_color2}}"></text>
+            <view>已完成</view>
+        </navigator>
+    </view>
+</view>
+<view class="order radius-20 mb-20">
+    <view class="order_view1 hbj">
+        <text>常用菜单</text>
+    </view>
+    <view class="order_view2">
+        <navigator url="{{item.url}}" wx:for="{{fxzzd}}">
+            <text class="iconfont {{item.icon}}" style="color:{{baseinfo.base_color2}}"></text>
+            <view>{{item.title}}</view>
+        </navigator>
+        <navigator bindtap="makePhoneCall">
+            <text class="iconfont icon-c-shouji" style="color:{{baseinfo.base_color2}}"></text>
+            <view>联系我们</view>
+        </navigator>
+    </view>
+</view>
+<view class="mask" wx:if="{{isview==1}}"></view>
+<view class="maskCon" wx:if="{{isview==1}}">
+    <view class="userTit">您是第一次访问，需要显示您的微信头像方可继续操作</view>
+    <button bindgetuserinfo="huoqusq" class="userBtn" openType="getUserInfo">一键获取</button>
+</view>
+<template is="copyright" data="{{...baseinfo}}"></template>
+<view style="margin:16rpx; 0;text-align:center;color:#fff;font-size:16rpx;">v2.56</view>
+<template is="footer" data="{{...baseinfo,page_signs:page_signs}}" wx:if="{{baseinfo.tabbar_t==1}}"></template>
+<view class="mask" style="z-index:9998;opacity:0.8" wx:if="{{needVip}}"></view>

@@ -1,0 +1,41 @@
+<import src="../templates/common.wxml"></import>
+<view class="bg_f mb10">
+    <view class="row_box">
+        <view class="row_bt">{{guiz.conf.title}}</view>
+    </view>
+    <view class="row_box" wx:for="{{guiz.list}}">
+        <view class="row_bt">充值满
+      <text>{{item.money}}</text>元
+      <block wx:if="{{item.getmoney!=0}}">
+        ，送<text>{{item.getmoney}}</text>元
+      </block>
+            <block wx:if="{{item.getscore!=0}}">
+        ，送<text>{{item.getscore}}</text>积分
+      </block>
+        </view>
+    </view>
+</view>
+<view class="bg_f mb10">
+    <view class="row_box">
+        <view class="row_bt">当前余额：</view>
+        <view class="row_bc">
+            <text>¥{{guiz.user.money}}</text>
+        </view>
+    </view>
+    <view class="row_box">
+        <view class="row_bt">当前积分：</view>
+        <view class="row_bc">
+            <text>{{guiz.user.score}}积分</text>
+        </view>
+    </view>
+    <view class="row_box">
+        <view class="row_bt">充值金额 </view>
+        <view style="float:left;margin-left:26rpx">¥</view>
+        <input bindinput="setmoney" class="row_bc" placeholder="请输入" type="digit"></input>
+    </view>
+</view>
+<view class="xld">
+    <button bindtap="setsubmit" class="wxzhi">微信支付</button>
+</view>
+<template is="footer" data="{{...baseinfo,page_signs:page_signs}}" wx:if="{{baseinfo.tabbar_t==1}}"></template>
+<view class="mask" wx:if="{{needvip}}"></view>

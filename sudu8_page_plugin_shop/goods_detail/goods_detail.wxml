@@ -1,0 +1,55 @@
+<import src="/sudu8_page/resource/wxParse/wxParse.wxml"></import>
+<view class="pro_head">
+    <swiper autoplay="true" circular="true" class="slide" duration="500" indicatorActiveColor="{{baseinfo.base_color2}}" indicatorColor="rgba(0, 0, 0, .3)" interval="3000" style="height:{{minHeight}}px;">
+        <swiper-item wx:for="{{picList}}" wx:key="item">
+            <image bindload="swiperLoad" class="slide-image" mode="widthFix" src="{{item}}" width="100%"></image>
+        </swiper-item>
+    </swiper>
+    <view class="pro_tit">{{datas.title}}</view>
+</view>
+<view class="price">
+    <font class="price1">¥</font>
+    <font class="price2">{{datas.sellprice}}</font>
+    <font class="price3 pline">¥{{datas.marketprice}}</font>
+    <font class="price3" wx:if="{{datas.pro_kc>=0}}">库存量：{{datas.storage}}</font>
+    <button class="sale_num" openType="share">
+        <image mode="widthFix" src="/sudu8_page/resource/img/btn_share.png" style="width:34rpx"></image>
+    </button>
+    <font class="sale_num">已售：{{datas.rsales}}</font>
+</view>
+<view class="spxq">
+    <view class="P_title">
+        <view bindtap="tabChange" class="pcon {{nowcon=='con'?'active':''}}" data-id="con" style="width:30%;">
+      商品/服务详情
+      <i style="text-align:left"></i>
+        </view>
+    </view>
+    <view class="xqnr" wx:if="{{nowcon=='con'}}">
+        <template is="wxParse" data="{{wxParseData:content.nodes}}"></template>
+    </view>
+</view>
+<view class="pro_footer_bg"></view>
+<view class="pro_footer">
+    <view class="pro_f1 pro_f_home">
+        <navigator openType="redirectTo" url="/sudu8_page/index/index">
+            <image src="/sudu8_page/resource/img/i_home.png"></image>
+            <text>首页</text>
+        </navigator>
+    </view>
+    <view bindtap="collect" class="pro_f1 pro_f_star" data-name="{{datas.id}}">
+        <image src="/sudu8_page/resource/img/i_like.png" wx:if="{{sc==0}}"></image>
+        <image src="/sudu8_page/resource/img/u_star.png" wx:if="{{sc==1}}"></image>
+        <text>收藏</text>
+    </view>
+    <view bindtap="makePhoneCall" class="pro_f1 pro_f_tel" data-tel="{{tel}}">
+        <image src="/sudu8_page/resource/img/i_tel.png"></image>
+        <text>客服</text>
+    </view>
+    <view class="pro_f1 pro_f_price">{{datas.sellprice}}元</view>
+    <navigator url="/sudu8_page_plugin_shop/goods_buy/goods_buy?id={{datas.id}}">
+        <view class="pro_f1 pro_f_buy">立即购买</view>
+    </navigator>
+</view>
+<navigator class="shareBtnArt shareBtnHome" url="/sudu8_page/index/index" wx:if="{{shareHome==1}}">
+    <image src="/sudu8_page/resource/img/more.png"></image>
+</navigator>
