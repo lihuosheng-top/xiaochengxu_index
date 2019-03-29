@@ -4,6 +4,7 @@ module.exports = {
     acid: "1",
     multiid: "0",
     version: "2.05",
-  siteroot: "http://localtest.com/api/Wxapps/",
+  // siteroot: "http://localtest.com/api/Wxapps/",
+  siteroot: "http://teahouse.com/api/",
     design_method: "3"
 };
