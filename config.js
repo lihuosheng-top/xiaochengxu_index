@@ -1,6 +1,6 @@
 var Dconfig = {
   // url: "http://localtest.com/api/Wxapps/",
-  url: "http://teahouse.com/api/",
+  url: "https://teahouse.siring.com.cn/api/",
     uniacid: "14"
 };
 

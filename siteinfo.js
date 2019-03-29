@@ -5,6 +5,6 @@ module.exports = {
     multiid: "0",
     version: "2.05",
   // siteroot: "http://localtest.com/api/Wxapps/",
-  siteroot: "http://teahouse.com/api/",
+  siteroot: "https://teahouse.siring.com.cn/api/",
     design_method: "3"
 };
